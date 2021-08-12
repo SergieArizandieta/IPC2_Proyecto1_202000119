@@ -69,20 +69,14 @@ class matriz:
             print("\nFila "+str(actual.fila))
             print("Columna valor")
             while actual!= None:
-                print(str(actual.columna) + "        " + actual.valor)
+                print(str(actual.columna) + "        " + str(actual.valor))
                 actual = actual.derecha
 
+         
             eFila = eFila.siguiente
-            print("\n**********************FIN recorrdio por filas ***********************")
+        print("\n**********************FIN recorrdio por filas ***********************")
 
 
-m = matriz()
-m.insertar(1,0,"Adolfo")
 
-
-c = matriz()
-c.insertar(1,0,"Adolfo 2.0")    
-m.recorridoFilas()
-c.recorridoFilas()
 
                 
