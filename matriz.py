@@ -70,13 +70,22 @@ class matriz:
             print("Columna valor")
             while actual!= None:
                 print(str(actual.columna) + "        " + str(actual.valor))
-                actual = actual.derecha
-
-         
+                actual = actual.derecha         
             eFila = eFila.siguiente
         print("\n**********************FIN recorrdio por filas ***********************")
 
+    def recorrerColumnas(self): 
+        eColumna = self.eColumnas.primero
+        print("\n**********************recorrdio por columnas ***********************")
 
+        while eColumna != None:
 
-
-                
+            actual = eColumna.accesoNodo
+            print("\nColumna "+ str(actual.columna))
+            print("Fila Valor")
+            while actual !=None:
+                print(str(actual.fila)+ "      "+ actual.valor)
+                actual = actual.abajo
+            
+            eColumna = eColumna.siguiente
+        print("\n**********************FIN recorrdio por columna ***********************")
