@@ -1,4 +1,3 @@
-from nodos import Nodo,nodoEncabezado
 
 class listaEncabezado:
     def __init__(self,primero=None):
