@@ -89,3 +89,16 @@ class matriz:
             
             eColumna = eColumna.siguiente
         print("\n**********************FIN recorrdio por columna ***********************")
+
+    def recorrerCompleto(self): 
+        eFila = self.eFilas.primero
+        print("\n**********************recorrdio ***********************")
+        while eFila != None:
+            actual =eFila.accesoNodo
+            fila = ""
+            while actual!= None:
+                fila += "|" + str(actual.valor) + "| "
+                actual = actual.derecha   
+            print( str(fila))         
+            eFila = eFila.siguiente
+        print("\n**********************FIN recorrdio  ***********************")
