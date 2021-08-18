@@ -36,7 +36,7 @@ for list in lita:
     #print(list)
     #list.recorridoFilas()
     list.recorrerCompleto()
-    list.MejorRuta(1,1,5,5,5,5)
+    list.MejorRuta(2,2,5,1,5,5)
 #Imprimir lista
 """for list in lita:
     print(list)

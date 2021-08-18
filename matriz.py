@@ -107,20 +107,17 @@ class matriz:
         print("\n********************** Mejor Ruta ***********************")
         Inicio = self.eFilas.primero
         actual =Inicio.accesoNodo
-        Inicial(actual,x1,y1,x2,y2,Inicio)
+        actual = Inicial(actual,x1,y1,x2,y2,Inicio)
         #print( AsignarTempInicial(actual.arriba,actual.abajo,actual.izquierda,actual.derecha,1000000000000000000000).valor , " valor final\n")
         actual = AsignarTempInicial(actual.arriba,actual.abajo,actual.izquierda,actual.derecha,1000000000000000000000)    
-
-
+        
         while actual.finish == 0:
             AsignarTemporales(actual,actual.arriba,actual.abajo,actual.izquierda,actual.derecha,1000000000000000000000)
             actual = Buscarmin(self.eColumnas.primero,100000000000000000)
         
-        
-     
-     
         print("\n**********************FIN recorrdio  ***********************")
-        RutaRegreso(actual,m,n)
+    
+        RutaRegreso(actual,y2,x2)
 
 def Inicial(actual,x1,y1,x2,y2,Inicio):
     
@@ -130,12 +127,9 @@ def Inicial(actual,x1,y1,x2,y2,Inicio):
         actual = actual.abajo
     actual.finish = "1"
 
-
     print("(",x1,",",y1,")")  
     print("(",x2,",",y2,")")
-
     #print(actual.valor + " final: " + actual.finish)
-
     actual = Inicio.accesoNodo
 
     for x in range(1,x1):
@@ -145,10 +139,10 @@ def Inicial(actual,x1,y1,x2,y2,Inicio):
     actual.star = "0"
     actual.temporal = 0
     actual.final = 0
-
     #print(actual.valor + " inicio: " + actual.star + "\n")   
-
     actual.revisado = True
+
+    return actual
 
 def AsignacionFinal(eColumnasPrimero,min,actual):
     eColumna = eColumnasPrimero
@@ -198,8 +192,8 @@ def AsignarTemporales(actual,arriba,abajo,izquierda,derecha,min):
             if arriba.temporal is None:
                 arriba.temporal = int(arriba.valor) + int(actual.final)
             else:
-                temporal = int(arriba.valor) + int(actual.acumulado)
-                if  temporal < arriba.temporal:
+                temporal = int(arriba.valor) + int(actual.final)
+                if  temporal < int(arriba.temporal):
                     arriba.temporal = arriba.temporal
         
         #print(arriba.temporal , "arriba temp")
@@ -210,7 +204,7 @@ def AsignarTemporales(actual,arriba,abajo,izquierda,derecha,min):
                 abajo.temporal = int(abajo.valor) + int(actual.final)
             else:
                 temporal = int(abajo.valor) + int(actual.final)
-                if  temporal < abajo.temporal:
+                if  temporal < int(abajo.temporal):
                     abajo.temporal = abajo.temporal
         
         #print(abajo.temporal , "abajo temp")
@@ -221,7 +215,7 @@ def AsignarTemporales(actual,arriba,abajo,izquierda,derecha,min):
                 derecha.temporal = int(derecha.valor) + int(actual.final)
             else:
                 temporal = int(derecha.valor) + int(actual.final)
-                if  temporal < derecha.temporal:
+                if  temporal < int(derecha.temporal):
                     derecha.temporal = derecha.temporal
         
         #print(derecha.temporal , "derecha temp")
@@ -233,7 +227,7 @@ def AsignarTemporales(actual,arriba,abajo,izquierda,derecha,min):
                 izquierda.temporal = int(izquierda.valor) + int(actual.final)
             else:
                 temporal = int(izquierda.valor) + int(actual.final)
-                if  temporal < izquierda.temporal:
+                if  temporal < int(izquierda.temporal):
                     izquierda.temporal = izquierda.temporal
         
         #print(izquierda.temporal , "izquierda temp")
@@ -271,8 +265,6 @@ def AsignarTempInicial(arriba,abajo,izquierda,derecha,min):
             min =  int(izquierda.temporal)
 
         #print(izquierda.temporal)
-
-
 
     if arriba != None:
           if min == int(arriba.temporal):
@@ -326,7 +318,6 @@ def RutaRegreso(actual,m,n):
                     actual = actual.arriba
                     m-=1
         
-
         print ( "(",n,",",m,")")
     
 
