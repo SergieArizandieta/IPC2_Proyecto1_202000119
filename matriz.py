@@ -92,7 +92,7 @@ class matriz:
 
     def recorrerCompleto(self): 
         eFila = self.eFilas.primero
-        print("\n**********************recorrdio ***********************")
+        print("\n********************** Se leyo la data del XML  ***********************")
         while eFila != None:
             actual =eFila.accesoNodo
             fila = ""
@@ -101,10 +101,32 @@ class matriz:
                 actual = actual.derecha   
             print( str(fila))         
             eFila = eFila.siguiente
-        print("\n**********************FIN recorrdio  ***********************")
+
+    def ReporteMatriz(self): 
+        eFila = self.eFilas.primero
+        print("\n********************** Mapeado de la mejor ruta ***********************")
+        while eFila != None:
+            actual =eFila.accesoNodo
+            fila = ""
+            while actual!= None:
+                if actual.marcador == True:
+                    fila += "|" + str(1) + "| "
+                else:
+                    fila += "|" + str(0) + "| "
+                actual = actual.derecha   
+            print( str(fila))         
+            eFila = eFila.siguiente
+
+        print("\n**********************FIN Reporte  ***********************")
 
     def MejorRuta(self,x1,y1,x2,y2,m,n): 
-        print("\n********************** Mejor Ruta ***********************")
+        print("\n********************** Se esta calculando la  Mejor Ruta para: ***********************")
+        print("Inicio")
+        print ( "(",x1,",",y1,")")
+        print("Final")
+        print ( "(",x2,",",y2,")")
+        print ( "Matriz de tamaño:",m,"*",n)
+        print ( "\n********************** Recorrido mejor ruta ***********************")
         Inicio = self.eFilas.primero
         actual =Inicio.accesoNodo
         actual = Inicial(actual,x1,y1,x2,y2,Inicio)
@@ -114,10 +136,9 @@ class matriz:
         while actual.finish == 0:
             AsignarTemporales(actual,actual.arriba,actual.abajo,actual.izquierda,actual.derecha,1000000000000000000000)
             actual = Buscarmin(self.eColumnas.primero,100000000000000000)
-        
-        print("\n**********************FIN recorrdio  ***********************")
-    
-        RutaRegreso(actual,y2,x2)
+
+       
+        RutaRegreso(actual,y1,x1)
 
 def Inicial(actual,x1,y1,x2,y2,Inicio):
     
@@ -127,8 +148,6 @@ def Inicial(actual,x1,y1,x2,y2,Inicio):
         actual = actual.abajo
     actual.finish = "1"
 
-    print("(",x1,",",y1,")")  
-    print("(",x2,",",y2,")")
     #print(actual.valor + " final: " + actual.finish)
     actual = Inicio.accesoNodo
 
@@ -286,11 +305,11 @@ def AsignarTempInicial(arriba,abajo,izquierda,derecha,min):
             izquierda.revisado = True
             return izquierda 
 
-def RutaRegreso(actual,m,n):
-    print ( "(",n,",",m,")")
-
+def RutaRegreso(actual,y,x):
+    print ( "(",x,",",y,")")
+    actual.marcador = True
     while actual.temporal != 0:
-
+        
         valor = int(actual.final) - int(actual.valor)
         #print(valor , "valor")
 
@@ -298,28 +317,31 @@ def RutaRegreso(actual,m,n):
             if actual.izquierda.final != None:
                 if int(actual.izquierda.final) == valor:
                     actual = actual.izquierda
-                    n -= 1 
+                    x+= 1 
 
         if actual.derecha != None:
             if actual.derecha.final != None:
                 if int(actual.derecha.final) == valor:
                     actual = actual.derecha
-                    n += 1
+                    x -= 1
 
         if actual.abajo != None:
             if actual.abajo.final != None:
                 if int(actual.abajo.final) == valor:
                     actual = actual.abajo
-                    m+=1
+                    y-=1
 
         if actual.arriba != None:
             if actual.arriba.final != None:
                 if int(actual.arriba.final) == valor:
                     actual = actual.arriba
-                    m-=1
-        
-        print ( "(",n,",",m,")")
+                    y+=1
+
+        actual.marcador = True
+        if actual.marcador == True:
+            print ( "(",x,",",y,")")
+
+
     
 
     
-        

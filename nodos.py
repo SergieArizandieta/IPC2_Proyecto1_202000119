@@ -13,6 +13,8 @@ class Nodo:
         self.temporal = None
         self.revisado = False
       
+        self.marcador = False
+
         self.x = None
         self.y = None
 

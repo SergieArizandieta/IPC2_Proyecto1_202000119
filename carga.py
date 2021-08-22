@@ -1,105 +1,52 @@
 from xml.dom import minidom
 from matriz import *
+from ListaEnlazada import *
 
-ruta = "./Test.xml"
-xml = minidom.parse(ruta)
-rootNode = xml.documentElement
-lita = []
+lista_e = lista_enlazada()
 
-terrenos = rootNode.getElementsByTagName("terreno")
-matrizGenerada = list
+def cargarListas(xmlRuta):
+    try:
+        ruta = xmlRuta 
+        xml = minidom.parse(ruta)
+        rootNode = xml.documentElement
 
-
-for terreno in terrenos:
-    if terreno.hasAttribute("nombre"):
-            matrizGenerada = matriz()
-            posicioninicio = terreno.getElementsByTagName("posicioninicio")
-            posicionfin = terreno.getElementsByTagName("posicionfin")
-
-            for inicio in posicioninicio:
-                x = inicio.getElementsByTagName("x")[0]
-                y = inicio.getElementsByTagName("y")[0]
-
-            for final in posicionfin:
-                x = final.getElementsByTagName("x")[0]
-                y = final.getElementsByTagName("y")[0]
-            posicion = terreno.getElementsByTagName("posicion")
-
-            for position in posicion:
-                matrizGenerada.insertar(position.getAttribute("y")[0] ,position.getAttribute("x")[0],position.childNodes[0].data)
-            lita.append(matrizGenerada)
-
-          
-
-print("Main")
-for list in lita:
-    #print(list)
-    #list.recorridoFilas()
-    list.recorrerCompleto()
-    list.MejorRuta(2,2,5,1,5,5)
-#Imprimir lista
-"""for list in lita:
-    print(list)
-    #list.recorridoFilas()
-    list.recorrerColumnas()"""
+        terrenos = rootNode.getElementsByTagName("terreno")
+        matrizGenerada = list
+        for terreno in terrenos:
+            if terreno.hasAttribute("nombre"):
+                    matrizGenerada = matriz()
+                    nombre = terreno.getAttribute("nombre")
+                                 
+                    dimension = terreno.getElementsByTagName("dimension")
+                    for tamano in dimension:
+                        m = tamano.getElementsByTagName("m")[0]
+                        n = tamano.getElementsByTagName("n")[0]
 
 
-"""
-for terreno in terrenos:
-    if terreno.hasAttribute("nombre"):
-            matrizGenerada = matriz()
-            print("nombre:",terreno.getAttribute("nombre"))
-            posicioninicio = terreno.getElementsByTagName("posicioninicio")
-            posicionfin = terreno.getElementsByTagName("posicionfin")
+                    posicioninicio = terreno.getElementsByTagName("posicioninicio")
+                    for inicio in posicioninicio:
+                        x1 = inicio.getElementsByTagName("x")[0]
+                        y1 = inicio.getElementsByTagName("y")[0]
 
-            print("Inicio")
-            for inicio in posicioninicio:
-                x = inicio.getElementsByTagName("x")[0]
-                y = inicio.getElementsByTagName("y")[0]
-                print(x.nodeName,":",x.childNodes[0].data)
-                print(y.nodeName,":",y.childNodes[0].data)
+                    posicionfin = terreno.getElementsByTagName("posicionfin")
+                    for final in posicionfin:
+                        x2 = final.getElementsByTagName("x")[0]
+                        y2 = final.getElementsByTagName("y")[0]
 
-            print("Final")
-            for final in posicionfin:
-                x = final.getElementsByTagName("x")[0]
-                y = final.getElementsByTagName("y")[0]
-                print(x.nodeName,":",x.childNodes[0].data)
-                print(y.nodeName,":",y.childNodes[0].data)
-            posicion = terreno.getElementsByTagName("posicion")
+ 
 
-            print("Valores")
-            for position in posicion:
-                print("-----")
-                print("x:",position.getAttribute("x")[0])
-                print("y:",position.getAttribute("y")[0])
-                print("data:",position.childNodes[0].data)
-                matrizGenerada.insertar(position.getAttribute("y")[0] ,position.getAttribute("x")[0],position.childNodes[0].data)
-            matrizGenerada.recorridoFilas()
-            lita.append(matrizGenerada)
-            
+                    posicion = terreno.getElementsByTagName("posicion")
+                    for position in posicion:
+                        matrizGenerada.insertar(position.getAttribute("y")[0] ,position.getAttribute("x")[0],position.childNodes[0].data)
+                    
+                    e1 = Listaterrenos(nombre,matrizGenerada,x1.childNodes[0].data,y1.childNodes[0].data,x2.childNodes[0].data,y2.childNodes[0].data,m.childNodes[0].data,n.childNodes[0].data )
+                    lista_e.insertar(e1)
 
-"""
+        # print("Recorrer listas")
+        #lista_e.recorrer() 
+        print("\nArchivo Cargado con Exito")
+    
+    except Exception:
+        print ("\nError en la ruta ingresada")
 
 
-"""
-
-for terreno in terrenos:
-    if terreno.hasAttribute("nombre"):
-            matrizGenerada = matriz()
-            posicioninicio = terreno.getElementsByTagName("posicioninicio")
-            posicionfin = terreno.getElementsByTagName("posicionfin")
-
-            for inicio in posicioninicio:
-                x = inicio.getElementsByTagName("x")[0]
-                y = inicio.getElementsByTagName("y")[0]
-
-            for final in posicionfin:
-                x = final.getElementsByTagName("x")[0]
-                y = final.getElementsByTagName("y")[0]
-            posicion = terreno.getElementsByTagName("posicion")
-
-            for position in posicion:
-                matrizGenerada.insertar(position.getAttribute("y")[0] ,position.getAttribute("x")[0],position.childNodes[0].data)
-            lita.append(matrizGenerada)
-
-"""
