@@ -1,5 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<terreno name="terreno122">
+<terreno name="terreno1">
   <posicioninicio>
     <x>1</x>
     <y>1</y>
@@ -8,6 +7,5 @@
     <x>5</x>
     <y>5</y>
   </posicionfinal>
-  <combustible>84</combustible>
-  <posicion x="1" y="2">1</posicion>
+  <combustible>75</combustible>
 </terreno>

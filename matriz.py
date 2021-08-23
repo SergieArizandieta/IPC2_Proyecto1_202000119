@@ -1,5 +1,6 @@
 from nodos import Nodo,nodoEncabezado
 from encabezado import listaEncabezado
+import xml.etree.cElementTree as ET
 
 Gasolina = 0
 class matriz:
@@ -120,7 +121,58 @@ class matriz:
 
         print("\n**********************FIN Reporte  ***********************")
 
-    def MejorRuta(self,x1,y1,x2,y2,m,n): 
+    def exportarxmls(self,y,x,terreno,y2,x2,rutaIngresada):
+        try:
+            print("\nXML creado en la ruta:")
+            ruta = rutaIngresada
+            root = ET.Element("terreno",name=terreno)
+            pocicioninicio = ET.SubElement(root, "posicioninicio")
+            ET.SubElement(pocicioninicio, "x").text = str(x)
+            ET.SubElement(pocicioninicio, "y").text = str(y)
+
+            pocicionfinal = ET.SubElement(root, "posicionfinal")
+            ET.SubElement(pocicionfinal, "x").text = str(x2)
+            ET.SubElement(pocicionfinal, "y").text = str(y2)
+
+
+            ET.SubElement(root, "combustible",).text = str(Gasolina)
+
+            #--------------------------------------------
+            eFila = self.eFilas.primero
+            while eFila != None:
+                actual =eFila.accesoNodo
+                fila = ""
+                while actual!= None:
+                    if actual.marcador == True:
+                        ET.SubElement(root, "posicion", x=str(actual.x),y=str(actual.y)).text = str(actual.valor)
+                    actual = actual.derecha           
+                eFila = eFila.siguiente
+        except Exception:
+            print ("\nError al crear archivo")
+            
+
+        #=-----------------------------------------------------------------
+
+        def Bonito(elemento, identificador='  '):
+            validar = [(0, elemento)]  
+
+            while validar:
+                level, elemento = validar.pop(0)
+                children = [(level + 1, child) for child in list(elemento)]
+                if children:
+                    elemento.text = '\n' + identificador * (level+1)  
+                if validar:
+                    elemento.tail = '\n' + identificador * validar[0][0]  
+                else:
+                    elemento.tail = '\n' + identificador * (level-1)  
+                validar[0:0] = children 
+
+        Bonito(root)
+        archio = ET.ElementTree(root)
+        archio.write(ruta + terreno + '.xml', encoding='UTF-8')
+        print("\nXML creado en la ruta:", ruta + terreno + '.xml')
+            
+    def MejorRuta(self,x1,y1,x2,y2,m,n,name): 
         print("\n********************** Se esta calculando la  Mejor Ruta para: ***********************")
         print("Inicio")
         print ( "(",x1,",",y1,")")
@@ -128,8 +180,10 @@ class matriz:
         print ( "(",x2,",",y2,")")
         print ( "Matriz de tamaño:",m,"*",n)
         print ( "\n********************** Recorrido mejor ruta ***********************")
+      
         Inicio = self.eFilas.primero
         actual =Inicio.accesoNodo
+        asignarposicion(actual,m,n)
         actual = Inicial(actual,x1,y1,x2,y2,Inicio)
         #print( AsignarTempInicial(actual.arriba,actual.abajo,actual.izquierda,actual.derecha,1000000000000000000000).valor , " valor final\n")
         actual = AsignarTempInicial(actual.arriba,actual.abajo,actual.izquierda,actual.derecha,1000000000000000000000)    
@@ -142,6 +196,22 @@ class matriz:
        
         print("\n",Gasolina, "GASOLINA TOTAL GASTADA")
         RutaRegreso(actual,y1,x1)
+        #exportarxml(actual,y1,x1,name,y2,x2)
+        
+def asignarposicion(actual,m,n):
+    for y in range(1,n+1): 
+        for x in range(1,m+1):
+            actual.x = x
+            actual.y = y
+            if actual.derecha is not None:
+                actual = actual.derecha
+        
+        for x in range(1,m+1):
+            if actual.izquierda is not None:
+                actual = actual.izquierda
+        if actual.abajo is not None:
+            actual = actual.abajo
+
 
 def Inicial(actual,x1,y1,x2,y2,Inicio):
     
@@ -150,7 +220,6 @@ def Inicial(actual,x1,y1,x2,y2,Inicio):
     for y in range(1,y2):
         actual = actual.abajo
     actual.finish = "1"
-
     #print(actual.valor + " final: " + actual.finish)
     actual = Inicio.accesoNodo
 
@@ -163,6 +232,7 @@ def Inicial(actual,x1,y1,x2,y2,Inicio):
     actual.final = 0
     #print(actual.valor + " inicio: " + actual.star + "\n")   
     actual.revisado = True
+
 
     return actual
 
@@ -344,7 +414,69 @@ def RutaRegreso(actual,y,x):
         if actual.marcador == True:
             print ( "(",x,",",y,")")
 
+def exportarxml(actual,y,x,terreno,y2,x2):
+    ruta = "./"
+    root = ET.Element("terreno",name=terreno)
+    pocicioninicio = ET.SubElement(root, "posicioninicio")
+    ET.SubElement(pocicioninicio, "x").text = str(x)
+    ET.SubElement(pocicioninicio, "y").text = str(y)
 
-    
+    pocicionfinal = ET.SubElement(root, "posicionfinal")
+    ET.SubElement(pocicionfinal, "x").text = str(x2)
+    ET.SubElement(pocicionfinal, "y").text = str(y2)
 
-    
+
+    ET.SubElement(root, "combustible",).text = str(Gasolina)
+
+    #--------------------------------------------
+    while actual.temporal != 0:
+        ET.SubElement(root, "posicion", x=str(x),y=str(y)).text = str(actual.valor)
+
+        valor = int(actual.final) - int(actual.valor)
+        #print(valor , "valor")
+
+        if actual.izquierda != None:
+            if actual.izquierda.final != None:
+                if int(actual.izquierda.final) == valor:
+                    actual = actual.izquierda
+                    x+= 1 
+
+        if actual.derecha != None:
+            if actual.derecha.final != None:
+                if int(actual.derecha.final) == valor:
+                    actual = actual.derecha
+                    x -= 1
+
+        if actual.abajo != None:
+            if actual.abajo.final != None:
+                if int(actual.abajo.final) == valor:
+                    actual = actual.abajo
+                    y-=1
+
+        if actual.arriba != None:
+            if actual.arriba.final != None:
+                if int(actual.arriba.final) == valor:
+                    actual = actual.arriba
+                    y+=1
+    #=-----------------------------------------------------------------
+
+    def Bonito(elemento, identificador='  '):
+        validar = [(0, elemento)]  
+
+        while validar:
+            level, elemento = validar.pop(0)
+            children = [(level + 1, child) for child in list(elemento)]
+            if children:
+                elemento.text = '\n' + identificador * (level+1)  
+            if validar:
+                elemento.tail = '\n' + identificador * validar[0][0]  
+            else:
+                elemento.tail = '\n' + identificador * (level-1)  
+            validar[0:0] = children 
+
+    Bonito(root)
+    archio = ET.ElementTree(root)
+    archio.write(ruta + 'prueba.xml', encoding='UTF-8')
+            
+
+        

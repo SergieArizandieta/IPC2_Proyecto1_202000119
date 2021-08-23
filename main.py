@@ -19,7 +19,7 @@ if __name__ == "__main__":
             #./prueba.xml
             print("\nCargar Archivo")
             xmlRuta = input("Ingrese ruta del xml: ")
-            xmlRuta = "./prueba.xml"
+            xmlRuta = "./Test.xml"
             cargarListas(xmlRuta)
             
         elif option == 2:
@@ -27,13 +27,17 @@ if __name__ == "__main__":
                 print("\nIngrese un archivo XML primero")
             else:
                 terreno = input("\nIngrese nombre del terreno: ")
-                lista_e.buscar("terreno1")
+                #terreno = "terreno1"
+                lista_e.buscar(terreno,True,"")
 
         elif option == 3:
-            print("Escribir archivbo de salida")    
+        
+            ruta = input("\nIngrese ruta para el xml: ")  
+            ruta = "./"
+            lista_e.buscar(terreno,False,ruta) 
 
         elif option == 4:
-            print("\nDatos del estudiante:")
+            print("\nDatos del estudiante:\n")
             print(">Sergie Daniel Arizandieta Yol")
             print(">20200119")
             print(">Introducción a la Programación y computación 2 'E'")

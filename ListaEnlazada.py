@@ -1,4 +1,5 @@
 from matriz import *
+
 class Listaterrenos:
   def __init__(self,terreno,lista,x1,y1,x2,y2,m,n):
     self.terreno=terreno
@@ -37,7 +38,7 @@ class lista_enlazada:
       actual = actual.siguiente
 
 
-  def buscar(self,terreno):
+  def buscar(self,terreno,opcion,rutaIngresada):
     actual = self.primero
     anterior = None
     while actual and actual.terreno.terreno != terreno:
@@ -48,10 +49,15 @@ class lista_enlazada:
         break
     if actual is not None:
       if actual.terreno.terreno == terreno:
-        print("\nTerreno a procesar: ", actual.terreno.terreno)
-        actual.terreno.lista.recorrerCompleto()
-        actual.terreno.lista.MejorRuta(int(actual.terreno.x1),int(actual.terreno.y1),int(actual.terreno.x2),int(actual.terreno.y2),int(actual.terreno.m),int(actual.terreno.n))
-        actual.terreno.lista.ReporteMatriz()
+       
+        if opcion == True:
+          print("\nTerreno a procesar: ", actual.terreno.terreno)
+          actual.terreno.lista.recorrerCompleto()
+          actual.terreno.lista.MejorRuta(int(actual.terreno.x1),int(actual.terreno.y1),int(actual.terreno.x2),int(actual.terreno.y2),int(actual.terreno.m),int(actual.terreno.n),actual.terreno.terreno)
+          actual.terreno.lista.ReporteMatriz()
+        elif opcion == False:
+          actual.terreno.lista.exportarxmls(int(actual.terreno.y1),int(actual.terreno.x1),actual.terreno.terreno,int(actual.terreno.y2),int(actual.terreno.x2),rutaIngresada)
+        
 
 
 
