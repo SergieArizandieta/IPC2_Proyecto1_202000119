@@ -1,6 +1,7 @@
 from nodos import Nodo,nodoEncabezado
 from encabezado import listaEncabezado
 
+Gasolina = 0
 class matriz:
     def __init__(self):
         self.eFilas =  listaEncabezado()
@@ -136,8 +137,10 @@ class matriz:
         while actual.finish == 0:
             AsignarTemporales(actual,actual.arriba,actual.abajo,actual.izquierda,actual.derecha,1000000000000000000000)
             actual = Buscarmin(self.eColumnas.primero,100000000000000000)
-
+            global Gasolina
+            Gasolina = actual.final
        
+        print("\n",Gasolina, "GASOLINA TOTAL GASTADA")
         RutaRegreso(actual,y1,x1)
 
 def Inicial(actual,x1,y1,x2,y2,Inicio):
