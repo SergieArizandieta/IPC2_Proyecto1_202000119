@@ -33,8 +33,6 @@ def cargarListas(xmlRuta):
                         x2 = final.getElementsByTagName("x")[0]
                         y2 = final.getElementsByTagName("y")[0]
 
- 
-
                     posicion = terreno.getElementsByTagName("posicion")
                     for position in posicion:
                         matrizGenerada.insertar(position.getAttribute("y")[0] ,position.getAttribute("x")[0],position.childNodes[0].data)
