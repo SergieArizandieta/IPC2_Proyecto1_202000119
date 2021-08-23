@@ -62,36 +62,6 @@ class matriz:
                     actual.abajo = nuevo 
                     nuevo.arriba = actual
 
-    def recorridoFilas(self):
-        eFila = self.eFilas.primero
-        print("\n**********************recorrdio por filas ***********************")
-
-        while eFila != None:
-            actual =eFila.accesoNodo
-            print("\nFila "+str(actual.fila))
-            print("Columna valor")
-            while actual!= None:
-                print(str(actual.columna) + "        " + str(actual.valor))
-                actual = actual.derecha         
-            eFila = eFila.siguiente
-        print("\n**********************FIN recorrdio por filas ***********************")
-
-    def recorrerColumnas(self): 
-        eColumna = self.eColumnas.primero
-        print("\n**********************recorrdio por columnas ***********************")
-
-        while eColumna != None:
-
-            actual = eColumna.accesoNodo
-            print("\nColumna "+ str(actual.columna))
-            print("Fila Valor")
-            while actual !=None:
-                print(str(actual.fila)+ "      "+ actual.valor)
-                actual = actual.abajo
-            
-            eColumna = eColumna.siguiente
-        print("\n**********************FIN recorrdio por columna ***********************")
-
     def recorrerCompleto(self): 
         eFila = self.eFilas.primero
         print("\n********************** Se leyo la data del XML  ***********************")
@@ -172,7 +142,7 @@ class matriz:
         archio.write(ruta + terreno + '.xml', encoding='UTF-8')
         print("\nXML creado en la ruta:", ruta + terreno + '.xml')
             
-    def MejorRuta(self,x1,y1,x2,y2,m,n,name): 
+    def MejorRuta(self,x1,y1,x2,y2,m,n): 
         print("\n********************** Se esta calculando la  Mejor Ruta para: ***********************")
         print("Inicio")
         print ( "(",x1,",",y1,")")
@@ -211,7 +181,6 @@ def asignarposicion(actual,m,n):
                 actual = actual.izquierda
         if actual.abajo is not None:
             actual = actual.abajo
-
 
 def Inicial(actual,x1,y1,x2,y2,Inicio):
     

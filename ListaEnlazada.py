@@ -53,7 +53,7 @@ class lista_enlazada:
         if opcion == True:
           print("\nTerreno a procesar: ", actual.terreno.terreno)
           actual.terreno.lista.recorrerCompleto()
-          actual.terreno.lista.MejorRuta(int(actual.terreno.x1),int(actual.terreno.y1),int(actual.terreno.x2),int(actual.terreno.y2),int(actual.terreno.m),int(actual.terreno.n),actual.terreno.terreno)
+          actual.terreno.lista.MejorRuta(int(actual.terreno.x1),int(actual.terreno.y1),int(actual.terreno.x2),int(actual.terreno.y2),int(actual.terreno.m),int(actual.terreno.n))
           actual.terreno.lista.ReporteMatriz()
         elif opcion == False:
           actual.terreno.lista.exportarxmls(int(actual.terreno.y1),int(actual.terreno.x1),actual.terreno.terreno,int(actual.terreno.y2),int(actual.terreno.x2),rutaIngresada)
