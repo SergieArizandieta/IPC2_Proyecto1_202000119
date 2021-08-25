@@ -1,0 +1,93 @@
+    graph L{
+    node[shape=oval fillcolor="#A181FF" style =filled]
+    
+    subgraph cluster_p{
+        
+        label= "Terreno "
+        bgcolor = "#FF7878"
+        raiz[label = "0,0" fillcolor="#FFD581" ]
+        
+
+        /*Aqui creamos las cabeceras
+        de las filas*/
+        Fila1[label="1",group=1];   
+        Fila2[label="2",group=1];   
+        Fila3[label="3",group=1];   
+       
+        
+        /*Aqui enlazamos los
+        nodos de las filas*/
+        Fila1--Fila2;
+        Fila2--Fila3;
+     
+     
+        /*Aqui enlazamos los
+        nodos de las COLUMNAS*/
+        Columna1[label = "1",group=2];
+        Columna2[label = "2",group=3];
+        Columna3[label = "3",group=4];
+
+ 
+        /*Aqui enlazar los nodos
+        de las caberas de las columnas*/
+        Columna1--Columna2;
+        Columna2--Columna3;
+  
+ 
+        /*aqui vamos a unir la raiz a las
+        filas y a las columnas*/
+        raiz--Fila1;
+        raiz--Columna1;
+        /*aqui vamos a alinear cada 
+        nodo cabecera de las columnas*/
+        {rank=same;raiz;Columna1;Columna2;Columna3}
+        nodo1_1[label="1,1",fillcolor="#81FFDA",group=2]
+        nodo1_2[label="1,2",fillcolor="#81FFDA",group=3]
+        nodo1_3[label="1,3",fillcolor="#81FFDA",group=4]
+
+        nodo2_1[label="2,1",fillcolor="#81FFDA",group=2]
+        nodo2_2[label="2,2",fillcolor="#81FFDA",group=3]
+        nodo2_3[label="2,3",fillcolor="#81FFDA",group=4]
+
+        nodo3_1[label="3,1",fillcolor="#81FFDA",group=2]
+        nodo3_2[label="3,2",fillcolor="#81FFDA",group=3]
+        nodo3_3[label="3,3",fillcolor="#81FFDA",group=4]
+
+        /*Rank por fila*/
+        Fila1--nodo1_1;
+        {rank=same;Fila1;nodo1_1,nodo1_2,nodo1_3}
+
+        Fila2--nodo2_1;
+        {rank=same;Fila2;nodo2_1;nodo2_2;nodo2_3}
+
+        Fila3 -- nodo3_1;
+        {rank=same;Fila3;nodo3_1;nodo3_2;nodo3_3;}
+      
+         /*Enlazar columnas*/
+        Columna1 -- nodo1_1;
+        Columna2 -- nodo1_2;
+        Columna3 -- nodo1_3;
+
+        /*Enlazar nodos por fima*/
+        nodo1_1 -- nodo1_2;
+        nodo1_2 -- nodo1_3;
+    
+        nodo2_1 -- nodo2_2;
+        nodo2_2 -- nodo2_3;
+
+        nodo3_1 -- nodo3_2;
+        nodo3_2 -- nodo3_3;
+
+        /*Enlazar nodos por columna*/
+        nodo1_1 -- nodo2_1;
+        nodo1_2 -- nodo2_2;
+        nodo1_3 -- nodo2_3;
+
+        nodo2_1 -- nodo3_1;
+        nodo2_2 -- nodo3_2;
+        nodo2_3 -- nodo3_3;
+
+    }
+
+}
+    

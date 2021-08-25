@@ -27,7 +27,9 @@ if __name__ == "__main__":
                     print("\nCargar Archivo")
                     xmlRuta = input("Ingrese ruta del xml: ")
                     #xmlRuta = "./division.xml"
-                    xmlRuta = "./prueba.xml"
+                    xmlRuta = "./Test.xml"
+                    #xmlRuta = "./prueba.xml"
+                    #xmlRuta = "./Test1.xml"
                     cargarListas(xmlRuta)
                     
                 elif option == 2:
@@ -35,6 +37,10 @@ if __name__ == "__main__":
                     if xmlRuta is None or xmlRuta=="":
                         print("\nIngrese un archivo XML primero")
                     else:
+                        print("\nTerrenos cargados en XML")   
+                        lista_e.recorrer() 
+                        
+
                         terreno = input("\nIngrese nombre del terreno: ")
                         #terreno = "terreno1"
                         lista_e.buscar(terreno,True,"",None)

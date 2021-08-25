@@ -36,7 +36,8 @@ class lista_enlazada:
     print("\n")
     actual= self.primero
     while actual != None:
-      print("terreno:", actual.terreno.terreno,"lista:", actual.terreno.lista, "x1:", actual.terreno.x1,"y1:", actual.terreno.y1,"x2:", actual.terreno.x2,"y2:", actual.terreno.y2)
+      #print("terreno:", actual.terreno.terreno,"lista:", actual.terreno.lista, "x1:", actual.terreno.x1,"y1:", actual.terreno.y1,"x2:", actual.terreno.x2,"y2:", actual.terreno.y2)
+      print("*", actual.terreno.terreno)
       actual = actual.siguiente
 
 
@@ -65,6 +66,7 @@ class lista_enlazada:
           print("\nTerreno a procesar: ", actual.terreno.terreno)
           actual.terreno.lista.recorrerCompleto()
           actual.terreno.lista.MejorRuta(int(actual.terreno.x1),int(actual.terreno.y1),int(actual.terreno.x2),int(actual.terreno.y2),int(actual.terreno.m),int(actual.terreno.n))
+        
           actual.terreno.lista.ReporteMatriz()
           actual.terreno.validado = True
         elif opcion == False  :

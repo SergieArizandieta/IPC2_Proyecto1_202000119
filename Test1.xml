@@ -1,8 +1,8 @@
 <TERRENOS>
     <TERRENO nombre="terreno1">
         <DIMENSION>
-            <m>5</m>
-            <n>5</n>
+            <m>101</m>
+            <n>100</n>
         </DIMENSION>
         <posicioninicio>
             <x>1</x>

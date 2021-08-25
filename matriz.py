@@ -157,6 +157,7 @@ class matriz:
             print ("\nError al crear archivo")
 
     def MejorRuta(self,x1,y1,x2,y2,m,n): 
+
         print("\n********************** Se esta calculando la  Mejor Ruta para: ***********************")
         print("Inicio")
         print ( "(",x1,",",y1,")")
@@ -192,10 +193,16 @@ class matriz:
         while actual.finish == 0:
             AsignarTemporales(actual,actual.arriba,actual.abajo,actual.izquierda,actual.derecha,1000000000000000000000)
             actual = Buscarmin(self.eColumnas.primero,100000000000000000)
-            global Gasolina
-            Gasolina = actual.final
-       
+            if actual.x == x2 and actual.y == y2:
+                global Gasolina
+                Gasolina += actual.final
+                
         print("\n",Gasolina, "GASOLINA TOTAL GASTADA")
+        if Gasolina>9999:
+            print("Gasolina no podra llegar a su destino\n")
+            print("Sin embargo la mejor tura era:\n")
+     
+    
         RutaRegreso(actual,y1,x1)
         #exportarxml(actual,y1,x1,name,y2,x2)
         
@@ -243,7 +250,8 @@ def Inicial(actual,x1,y1,x2,y2,Inicio):
     #print(actual.x,",",actual.y)
     #print(actual.valor , " inicio: " ,actual.star + "\n")   
     actual.revisado = True
-
+    global Gasolina
+    Gasolina = actual.valor
 
     return actual
 
