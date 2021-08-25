@@ -2,16 +2,16 @@ from nodos import Nodo,nodoEncabezado
 from encabezado import listaEncabezado
 import xml.etree.cElementTree as ET
 
+
 Gasolina = 0
 class matriz:
     def __init__(self):
         self.eFilas =  listaEncabezado()
         self.eColumnas = listaEncabezado()
 
-    def insertar(self,fila,columna,valor):
-        nuevo = Nodo(fila,columna,valor)
+    def insertar(self,fila,columna,valor,x,y):
+        nuevo = Nodo(fila,columna,valor,x,y)
 
-        #Insercion de encabezados por filas
         eFila = self.eFilas.getEncabezado(fila)
         if eFila == None:
             eFila = nodoEncabezado(fila)
@@ -93,7 +93,7 @@ class matriz:
 
     def exportarxmls(self,y,x,terreno,y2,x2,rutaIngresada):
         try:
-            print("\nXML creado en la ruta:")
+            
             ruta = rutaIngresada
             root = ET.Element("terreno",name=terreno)
             pocicioninicio = ET.SubElement(root, "posicioninicio")
@@ -117,31 +117,45 @@ class matriz:
                         ET.SubElement(root, "posicion", x=str(actual.x),y=str(actual.y)).text = str(actual.valor)
                     actual = actual.derecha           
                 eFila = eFila.siguiente
+
+            
+
+            #=-----------------------------------------------------------------
+
+            def Bonito(elemento, identificador='  '):
+                validar = [(0, elemento)]  
+
+                while validar:
+                    level, elemento = validar.pop(0)
+                    children = [(level + 1, child) for child in list(elemento)]
+                    if children:
+                        elemento.text = '\n' + identificador * (level+1)  
+                    if validar:
+                        elemento.tail = '\n' + identificador * validar[0][0]  
+                    else:
+                        elemento.tail = '\n' + identificador * (level-1)  
+                    validar[0:0] = children 
+
+            Bonito(root)
+            
+            archio = ET.ElementTree(root)
+           
+            return archio
+            
+            """     archio.write(ruta  + terreno + '.xml', encoding='UTF-8')
+            print("\nXML creado en la ruta:", ruta + terreno + '.xml')"""
+
         except Exception:
             print ("\nError al crear archivo")
             
+    def crearXML(self,terreno,root):
+        try:
+            ruta = "./XML_Terrenos/"
+            root.write(ruta  + terreno + '.xml', encoding='UTF-8')
+            print("\nXML creado en la ruta:", ruta + terreno + '.xml')
+        except Exception:
+            print ("\nError al crear archivo")
 
-        #=-----------------------------------------------------------------
-
-        def Bonito(elemento, identificador='  '):
-            validar = [(0, elemento)]  
-
-            while validar:
-                level, elemento = validar.pop(0)
-                children = [(level + 1, child) for child in list(elemento)]
-                if children:
-                    elemento.text = '\n' + identificador * (level+1)  
-                if validar:
-                    elemento.tail = '\n' + identificador * validar[0][0]  
-                else:
-                    elemento.tail = '\n' + identificador * (level-1)  
-                validar[0:0] = children 
-
-        Bonito(root)
-        archio = ET.ElementTree(root)
-        archio.write(ruta + terreno + '.xml', encoding='UTF-8')
-        print("\nXML creado en la ruta:", ruta + terreno + '.xml')
-            
     def MejorRuta(self,x1,y1,x2,y2,m,n): 
         print("\n********************** Se esta calculando la  Mejor Ruta para: ***********************")
         print("Inicio")
@@ -150,10 +164,27 @@ class matriz:
         print ( "(",x2,",",y2,")")
         print ( "Matriz de tamaño:",m,"*",n)
         print ( "\n********************** Recorrido mejor ruta ***********************")
+
+        
+      
       
         Inicio = self.eFilas.primero
         actual =Inicio.accesoNodo
-        asignarposicion(actual,m,n)
+        """ print("\nsdjkasls")
+        for y in range(1,n+1): 
+            for x in range(1,m+1):
+                print(actual.x, "," ,actual.y)
+                if actual.derecha is not None:
+                    actual = actual.derecha
+            
+            for x in range(1,m+1):
+                if actual.izquierda is not None:
+                    actual = actual.izquierda
+            if actual.abajo is not None:
+                actual = actual.abajo
+        print("\nsdjkasls")"""
+        actual =Inicio.accesoNodo
+        #asignarposicion(actual,m,n)
         actual = Inicial(actual,x1,y1,x2,y2,Inicio)
         #print( AsignarTempInicial(actual.arriba,actual.abajo,actual.izquierda,actual.derecha,1000000000000000000000).valor , " valor final\n")
         actual = AsignarTempInicial(actual.arriba,actual.abajo,actual.izquierda,actual.derecha,1000000000000000000000)    
@@ -183,23 +214,34 @@ def asignarposicion(actual,m,n):
             actual = actual.abajo
 
 def Inicial(actual,x1,y1,x2,y2,Inicio):
-    
-    for x in range(1,x2):
+
+    iniciox = int(actual.x)
+    inicioy = int(actual.y)
+    #print(iniciox,",",inicioy, " ESTART")
+    #print(x2,",",y2, " PRIMERAS\n")
+
+    for x in range(iniciox,x2):
         actual = actual.derecha
-    for y in range(1,y2):
+        #print(actual.x)
+    #print("\n")
+    
+    for y in range(inicioy,y2):
+        #print(actual.y)
         actual = actual.abajo
     actual.finish = "1"
-    #print(actual.valor + " final: " + actual.finish)
+    #print(actual.x,",",actual.y)
+    #print(actual.valor , " final: " , actual.finish)
     actual = Inicio.accesoNodo
 
-    for x in range(1,x1):
+    for x in range(iniciox,x1):
         actual = actual.derecha
-    for y in range(1,y1):
+    for y in range(inicioy,y1):
         actual = actual.abajo
     actual.star = "0"
     actual.temporal = 0
     actual.final = 0
-    #print(actual.valor + " inicio: " + actual.star + "\n")   
+    #print(actual.x,",",actual.y)
+    #print(actual.valor , " inicio: " ,actual.star + "\n")   
     actual.revisado = True
 
 
@@ -240,6 +282,7 @@ def Buscarmin(eColumnasPrimero,min):
 
     ruta.final = ruta.temporal
     ruta.revisado = True
+    #print(ruta.x,"," ,ruta.y)
     #print(ruta.final," valor final")
     return ruta
 
@@ -348,42 +391,51 @@ def AsignarTempInicial(arriba,abajo,izquierda,derecha,min):
             return izquierda 
 
 def RutaRegreso(actual,y,x):
-    print ( "(",x,",",y,")")
+    print ( "(",actual.x,",",actual.y,") Final")
+    
     actual.marcador = True
     while actual.temporal != 0:
-        
+        posibilidad = True
         valor = int(actual.final) - int(actual.valor)
         #print(valor , "valor")
 
-        if actual.izquierda != None:
+        if actual.izquierda != None and posibilidad == True:
             if actual.izquierda.final != None:
                 if int(actual.izquierda.final) == valor:
                     actual = actual.izquierda
                     x+= 1 
+                    posibilidad = False
 
-        if actual.derecha != None:
+        if actual.derecha != None and posibilidad == True:
             if actual.derecha.final != None:
                 if int(actual.derecha.final) == valor:
                     actual = actual.derecha
                     x -= 1
+                    posibilidad = False
 
-        if actual.abajo != None:
+        if actual.abajo != None and posibilidad == True:
             if actual.abajo.final != None:
                 if int(actual.abajo.final) == valor:
                     actual = actual.abajo
                     y-=1
+                    posibilidad = False
 
-        if actual.arriba != None:
+        if actual.arriba != None and posibilidad == True:
             if actual.arriba.final != None:
                 if int(actual.arriba.final) == valor:
                     actual = actual.arriba
                     y+=1
+                    posibilidad = False
 
         actual.marcador = True
-        if actual.marcador == True:
-            print ( "(",x,",",y,")")
+        if actual.marcador == True and actual.final == 0:
+            print ( "(",actual.x,",",actual.y,") Inicio")
+        elif actual.marcador == True:
+            print ( "(",actual.x,",",actual.y,") ↖")
 
 def exportarxml(actual,y,x,terreno,y2,x2):
+
+
     ruta = "./"
     root = ET.Element("terreno",name=terreno)
     pocicioninicio = ET.SubElement(root, "posicioninicio")
@@ -446,6 +498,5 @@ def exportarxml(actual,y,x,terreno,y2,x2):
     Bonito(root)
     archio = ET.ElementTree(root)
     archio.write(ruta + 'prueba.xml', encoding='UTF-8')
-            
-
+        
         
