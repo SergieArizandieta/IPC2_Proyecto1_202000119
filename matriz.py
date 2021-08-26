@@ -1,3 +1,5 @@
+from os import system,startfile
+
 from nodos import Nodo,nodoEncabezado
 from encabezado import listaEncabezado
 import xml.etree.cElementTree as ET
@@ -9,7 +11,29 @@ class matriz:
         self.eFilas =  listaEncabezado()
         self.eColumnas = listaEncabezado()
 
+    def importarGrafo(self,DOT,name):
+        print("Generando Grafo.... de: " +name)
+        ruta = "./Diagramas/"
+
+        DotName = name+ '.dot'
+        ImgName = name + '.png'
+        rutacmdImg = "Diagramas/" + ImgName
+        rutacmdImg = '"' + rutacmdImg + '"'
+        #print(DOT)
+        miArchivo= open(ruta + DotName,'w')
+        miArchivo.write(DOT)
+        miArchivo.close()
+        
+        system('dot -Tpng ' + ruta+  DotName + ' -o ' + ruta+ ImgName)
+        #print(rutacmdImg)
+        system('"' + rutacmdImg + '"')
+
+
+
     def insertarGrafo(self,terreno,m,n):
+        Inicio = self.eFilas.primero
+        actual =Inicio.accesoNodo
+
         columnastemp = []
         filas = ""
         InicioGraf = """
@@ -19,9 +43,9 @@ node[shape=oval fillcolor="#A181FF" style =filled]
 subgraph cluster_p{
 label= " """ + terreno +""" "
 bgcolor = "#FF7878"
-raiz[label = "0,0" fillcolor="#FFD581" ]\n\n"""
+raiz[label = "F/C" fillcolor="#FFD581" ]\n\n"""
         for y in range(1,n+1):
-            filas += 'Fila' + str(y) + '[label="' + str(y) + '",group='+str(y)+'];\n'
+            filas += 'Fila' + str(y) + '[label="' + str(y) + '",group='+str(1)+'];\n'
 
         filas += "\n"
 
@@ -31,7 +55,7 @@ raiz[label = "0,0" fillcolor="#FFD581" ]\n\n"""
         filas += "\n"
 
         for x in range(1,m+1):
-            filas += 'Columna' + str(x) + '[label="' + str(x) + '",group=' + str(x)+ '];\n'
+            filas += 'Columna' + str(x) + '[label="' + str(x) + '",group=' + str(x+1)+ '];\n'
             data = "Columna"+str(x)
             columnastemp.append(data)
 
@@ -49,32 +73,70 @@ raiz[label = "0,0" fillcolor="#FFD581" ]\n\n"""
         cadena += "}" 
         filas += cadena + "\n\n"
 
-        for x in range(1,m+1): 
+        #Seccion para data de archivo de entrada
 
+        for y in range(1,n+1): 
+
+            for x in range(1,m+1):
+                #filas += 'nodo' + str(x) + '_' + str(y) + '[label="'+str(actual.x)+ ',' + str(actual.y) + '",fillcolor="#81FFDA",group='+ str(x+1) + ']\n'
+                filas += 'nodo' + str(x) + '_' + str(y) + '[label="'+str(actual.valor) +  '",fillcolor="#81FFDA",group='+ str(y+1) + ']\n'
+                if actual.derecha is not None:
+                    actual =actual.derecha
+                
+                else:
+                    actual =Inicio.accesoNodo
+                    for desplazo in range(1,y+1):
+                        if actual.abajo is not None:
+                            actual = actual.abajo
+
+            filas += "\n"
+        #Acaba Seccion para data de archivo de entrada
+
+        
+        temporatxt = ""
+        for y in range(1,n+1):
+            temporatxt= ""
+            filas += 'Fila' + str(y) + '--' + "nodo" + str(1) + "_" + str(y)  + ";\n"
+            for x in range(1,m+1):
+                if x == m:
+                    temporatxt += "nodo" + str(x) + "_" +  str(y) 
+                else:
+                    temporatxt += "nodo" + str(x) + "_" +  str(y) + "," 
+                
+            temporatxt += "}"
+            filas += "{rank=same;Fila" +str(y) + "," + temporatxt + "\n"
+       
+
+        filas += "\n"
+
+        for x in range(1,m+1):
+            filas += 'Columna' + str(x) + '--' + 'nodo' +  str(x) + '_1;\n'
+
+        filas += "\n"
+
+        for x in range(1,m+1):
+            for y in range(1,n):
+                filas += 'nodo' + str(x) +"_" +  str(y) + '--' + 'nodo' + str(x) + "_" + str(y+1) + ';\n'
+            filas += "\n"
+
+        filas += "\n /*Enlazar*/\n "
+
+        temporalX=0
+        for x in range(1,m):
+            temporalX +=1
             for y in range(1,n+1):
-                filas += 'nodo' + str(x) + '_' + str(y) + '[label="'+str(x)+ ',' + str(y) + '",fillcolor="#81FFDA",group='+ str(y+1) + ']\n'
+                filas += 'nodo' + str(temporalX) +"_" +  str(y) + '--' + 'nodo' + str(temporalX+1) + "_" + str(y) + ';\n'
             filas += "\n"
 
         InicioGraf += filas
         InicioGraf += '} }'
-        print(InicioGraf)
 
-        print("hola")
+        #print(InicioGraf)
         Inicio = self.eFilas.primero
         actual =Inicio.accesoNodo
-        print("\nsdjkasls")
-        for y in range(1,n+1): 
-            for x in range(1,m+1):
-                #print(actual.x, "," ,actual.y)
-                if actual.derecha is not None:
-                    actual = actual.derecha
-            
-            for x in range(1,m+1):
-                if actual.izquierda is not None:
-                    actual = actual.izquierda
-            if actual.abajo is not None:
-                actual = actual.abajo
-        print("\nsdjkasls")
+
+        return InicioGraf
+
 
     def insertar(self,fila,columna,valor,x,y):
         nuevo = Nodo(fila,columna,valor,x,y)
@@ -238,21 +300,9 @@ raiz[label = "0,0" fillcolor="#FFD581" ]\n\n"""
       
         Inicio = self.eFilas.primero
         actual =Inicio.accesoNodo
-        """ print("\nsdjkasls")
-        for y in range(1,n+1): 
-            for x in range(1,m+1):
-                print(actual.x, "," ,actual.y)
-                if actual.derecha is not None:
-                    actual = actual.derecha
-            
-            for x in range(1,m+1):
-                if actual.izquierda is not None:
-                    actual = actual.izquierda
-            if actual.abajo is not None:
-                actual = actual.abajo
-        print("\nsdjkasls")"""
+
         actual =Inicio.accesoNodo
-        #asignarposicion(actual,m,n)
+    
         actual = Inicial(actual,x1,y1,x2,y2,Inicio)
         #print( AsignarTempInicial(actual.arriba,actual.abajo,actual.izquierda,actual.derecha,1000000000000000000000).valor , " valor final\n")
         actual = AsignarTempInicial(actual.arriba,actual.abajo,actual.izquierda,actual.derecha,1000000000000000000000)    
@@ -273,20 +323,6 @@ raiz[label = "0,0" fillcolor="#FFD581" ]\n\n"""
         RutaRegreso(actual,y1,x1)
         #exportarxml(actual,y1,x1,name,y2,x2)
         
-def asignarposicion(actual,m,n):
-    for y in range(1,n+1): 
-        for x in range(1,m+1):
-            actual.x = x
-            actual.y = y
-            if actual.derecha is not None:
-                actual = actual.derecha
-        
-        for x in range(1,m+1):
-            if actual.izquierda is not None:
-                actual = actual.izquierda
-        if actual.abajo is not None:
-            actual = actual.abajo
-
 def Inicial(actual,x1,y1,x2,y2,Inicio):
 
     iniciox = int(actual.x)
@@ -506,7 +542,7 @@ def RutaRegreso(actual,y,x):
         if actual.marcador == True and actual.final == 0:
             print ( "(",actual.x,",",actual.y,") Inicio")
         elif actual.marcador == True:
-            print ( "(",actual.x,",",actual.y,") ↖")
+            print ( "(",actual.x,",",actual.y,") ↑")
 
 def exportarxml(actual,y,x,terreno,y2,x2):
 

@@ -27,8 +27,8 @@ if __name__ == "__main__":
                     print("\nCargar Archivo")
                     xmlRuta = input("Ingrese ruta del xml: ")
                     #xmlRuta = "./division.xml"
-                    xmlRuta = "./Test2.xml"
-                    #xmlRuta = "./prueba.xml"
+                    #xmlRuta = "./Test2.xml"
+                    xmlRuta = "./prueba.xml"
                     #xmlRuta = "./Test1.xml"
                     cargarListas(xmlRuta)
                     
@@ -42,10 +42,11 @@ if __name__ == "__main__":
                         
 
                         terreno = input("\nIngrese nombre del terreno: ")
-                        terreno = "terreno1"
+                        #terreno = "terreno1"
                         lista_e.buscar(terreno,True,"",None)
                         ruta = "./XML_Terrenos/"
                         lista_e.buscar(terreno,False,ruta,None)
+                        lista_e.Grafo(terreno,None)
 
                 elif option == 3:
 
@@ -59,6 +60,7 @@ if __name__ == "__main__":
                         ruta = "./XML_Terrenos/"
                         lista_e.buscar(terrenos,True,"","XML")
                         #lista_e.buscar(terrenos,False,ruta) 
+                        
 
                 elif option == 4:
                     print("\nDatos del estudiante:\n")
@@ -78,9 +80,11 @@ if __name__ == "__main__":
                         lista_e.recorrerNombres()
                         
                         terrenoGrafo = input("\nIngrese nombre del terreno: ")
-                        terrenoGrafo = "terreno1"
-                        lista_e.Grafo(terrenoGrafo)
-                        print("Genrar grafica")
+                        #terrenoGrafo = "terreno1"
+
+                        #lista_e.Grafo(terrenoGrafo)
+                        lista_e.Grafo(terrenoGrafo,"importar")
+                       
 
                 elif option == 6: 
                     print("\nGracias por usar!")

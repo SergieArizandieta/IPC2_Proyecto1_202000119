@@ -82,7 +82,7 @@ class lista_enlazada:
            print("Funcionalidad de terreno incorrecta")
 
 
-  def Grafo(self,terreno):
+  def Grafo(self,terreno,importar):
     actual = self.primero
     anterior = None
     while actual and actual.terreno.terreno != terreno:
@@ -93,10 +93,17 @@ class lista_enlazada:
         break
     if actual is not None:
       if actual.terreno.terreno == terreno:
-        if  actual.terreno.validado == True:
+        if  actual.terreno.validado == True and actual.terreno.grafo == None and importar == None:
             
             documento = actual.terreno.lista.insertarGrafo(actual.terreno.terreno,int(actual.terreno.m),int(actual.terreno.n))
-            self.grafo = documento
+            actual.grafo = documento
+            #print(actual.grafo)
+        elif  actual.terreno.validado == True  and importar is not None:
+            print("Importar")
+            #print(actual.grafo)
+            actual.terreno.lista.importarGrafo(actual.grafo,actual.terreno.terreno )
+      
+
 
 
 

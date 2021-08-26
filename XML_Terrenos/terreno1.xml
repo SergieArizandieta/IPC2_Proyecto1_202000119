@@ -1,16 +1,18 @@
 <terreno name="terreno1">
   <posicioninicio>
-    <x>1</x>
-    <y>1</y>
+    <x>7</x>
+    <y>9</y>
   </posicioninicio>
   <posicionfinal>
-    <x>3</x>
-    <y>3</y>
+    <x>7</x>
+    <y>15</y>
   </posicionfinal>
-  <combustible>27</combustible>
-  <posicion x="1" y="1">1</posicion>
-  <posicion x="1" y="2">2</posicion>
-  <posicion x="1" y="3">3</posicion>
-  <posicion x="2" y="3">8</posicion>
-  <posicion x="3" y="3">13</posicion>
+  <combustible>37</combustible>
+  <posicion x="7" y="9">9</posicion>
+  <posicion x="7" y="10">1</posicion>
+  <posicion x="7" y="11">5</posicion>
+  <posicion x="7" y="12">2</posicion>
+  <posicion x="7" y="13">9</posicion>
+  <posicion x="7" y="14">2</posicion>
+  <posicion x="7" y="15">9</posicion>
 </terreno>
