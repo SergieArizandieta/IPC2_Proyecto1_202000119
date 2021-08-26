@@ -9,6 +9,73 @@ class matriz:
         self.eFilas =  listaEncabezado()
         self.eColumnas = listaEncabezado()
 
+    def insertarGrafo(self,terreno,m,n):
+        columnastemp = []
+        filas = ""
+        InicioGraf = """
+graph L{
+node[shape=oval fillcolor="#A181FF" style =filled]
+
+subgraph cluster_p{
+label= " """ + terreno +""" "
+bgcolor = "#FF7878"
+raiz[label = "0,0" fillcolor="#FFD581" ]\n\n"""
+        for y in range(1,n+1):
+            filas += 'Fila' + str(y) + '[label="' + str(y) + '",group='+str(y)+'];\n'
+
+        filas += "\n"
+
+        for y in range(1,n):
+            filas += 'Fila' + str(y) + '--' + 'Fila' + str(y+1) + ';\n'
+
+        filas += "\n"
+
+        for x in range(1,m+1):
+            filas += 'Columna' + str(x) + '[label="' + str(x) + '",group=' + str(x)+ '];\n'
+            data = "Columna"+str(x)
+            columnastemp.append(data)
+
+        filas += "\n"
+
+        for x in range(1,m):
+            filas += 'Columna' + str(x) + '--' + 'Columna' + str(x+1) + ';\n'
+        
+        filas += "\nraiz--Fila1; \nraiz--Columna1;\n\n"
+
+        cadena = " {rank=same;raiz;"
+
+        for lista in columnastemp:
+            cadena +=  lista+";"
+        cadena += "}" 
+        filas += cadena + "\n\n"
+
+        for x in range(1,m+1): 
+
+            for y in range(1,n+1):
+                filas += 'nodo' + str(x) + '_' + str(y) + '[label="'+str(x)+ ',' + str(y) + '",fillcolor="#81FFDA",group='+ str(y+1) + ']\n'
+            filas += "\n"
+
+        InicioGraf += filas
+        InicioGraf += '} }'
+        print(InicioGraf)
+
+        print("hola")
+        Inicio = self.eFilas.primero
+        actual =Inicio.accesoNodo
+        print("\nsdjkasls")
+        for y in range(1,n+1): 
+            for x in range(1,m+1):
+                #print(actual.x, "," ,actual.y)
+                if actual.derecha is not None:
+                    actual = actual.derecha
+            
+            for x in range(1,m+1):
+                if actual.izquierda is not None:
+                    actual = actual.izquierda
+            if actual.abajo is not None:
+                actual = actual.abajo
+        print("\nsdjkasls")
+
     def insertar(self,fila,columna,valor,x,y):
         nuevo = Nodo(fila,columna,valor,x,y)
 

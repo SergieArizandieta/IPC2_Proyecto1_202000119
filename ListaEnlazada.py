@@ -12,6 +12,7 @@ class Listaterrenos:
     self.n=n
     self.validado = False
     self.xml = None
+    self.grafo = None
 
 
 class nodo:
@@ -59,23 +60,43 @@ class lista_enlazada:
         break
     if actual is not None:
       if actual.terreno.terreno == terreno:
+
+
+
         if XML is not None and actual.terreno.validado == True:
             print("\nCreando archivo XML para terreno:" ,  actual.terreno.terreno) 
             actual.terreno.lista.crearXML(actual.terreno.terreno,actual.terreno.xml)
+
         elif opcion == True and actual.terreno.validado == False and XML is None:
           print("\nTerreno a procesar: ", actual.terreno.terreno)
           actual.terreno.lista.recorrerCompleto()
           actual.terreno.lista.MejorRuta(int(actual.terreno.x1),int(actual.terreno.y1),int(actual.terreno.x2),int(actual.terreno.y2),int(actual.terreno.m),int(actual.terreno.n))
-        
           actual.terreno.lista.ReporteMatriz()
           actual.terreno.validado = True
+
         elif opcion == False  :
           xml = actual.terreno.lista.exportarxmls(int(actual.terreno.y1),int(actual.terreno.x1),actual.terreno.terreno,int(actual.terreno.y2),int(actual.terreno.x2),rutaIngresada)
           actual.terreno.xml = xml
          
         else:
            print("Funcionalidad de terreno incorrecta")
-        
+
+
+  def Grafo(self,terreno):
+    actual = self.primero
+    anterior = None
+    while actual and actual.terreno.terreno != terreno:
+      anterior = actual
+      actual = actual.siguiente
+      if actual is None:
+        print("\nNo se encontro el Terreno:", terreno)
+        break
+    if actual is not None:
+      if actual.terreno.terreno == terreno:
+        if  actual.terreno.validado == True:
+            
+            documento = actual.terreno.lista.insertarGrafo(actual.terreno.terreno,int(actual.terreno.m),int(actual.terreno.n))
+            self.grafo = documento
 
 
 

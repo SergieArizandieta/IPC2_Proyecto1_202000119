@@ -19,7 +19,7 @@ if __name__ == "__main__":
         
 
         while aceptacion == True:
-            try:
+        
                 option = int(input("Ingrese una opcion: "))
             
                 if option == 1:
@@ -27,7 +27,7 @@ if __name__ == "__main__":
                     print("\nCargar Archivo")
                     xmlRuta = input("Ingrese ruta del xml: ")
                     #xmlRuta = "./division.xml"
-                    xmlRuta = "./Test.xml"
+                    xmlRuta = "./Test2.xml"
                     #xmlRuta = "./prueba.xml"
                     #xmlRuta = "./Test1.xml"
                     cargarListas(xmlRuta)
@@ -42,7 +42,7 @@ if __name__ == "__main__":
                         
 
                         terreno = input("\nIngrese nombre del terreno: ")
-                        #terreno = "terreno1"
+                        terreno = "terreno1"
                         lista_e.buscar(terreno,True,"",None)
                         ruta = "./XML_Terrenos/"
                         lista_e.buscar(terreno,False,ruta,None)
@@ -70,9 +70,16 @@ if __name__ == "__main__":
 
                 elif option == 5:    
 
+                        
                     if terreno is None:
                         print("\nProcese un terreno primero")
                     else: 
+                        print("\nTerrenos procesados:")
+                        lista_e.recorrerNombres()
+                        
+                        terrenoGrafo = input("\nIngrese nombre del terreno: ")
+                        terrenoGrafo = "terreno1"
+                        lista_e.Grafo(terrenoGrafo)
                         print("Genrar grafica")
 
                 elif option == 6: 
@@ -85,7 +92,5 @@ if __name__ == "__main__":
                 print()
                 menu()
                 
-            except Exception:
-                    print ("\nError vuelva  a intentarlo\n")
-                    menu()
+           
 
