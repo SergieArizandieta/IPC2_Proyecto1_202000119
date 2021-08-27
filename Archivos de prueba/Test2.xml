@@ -1,48 +1,32 @@
-<terrenos>
-    <terreno nombre="terreno1">
-        <dimension>
-            <m>5</m>
-            <n>5</n>
-        </dimension>
+<TERRENOS>
+    <TERRENO nombre="terreno1">
+        <DIMENSION>
+            <m>3</m>
+            <n>3</n>
+        </DIMENSION>
         <posicioninicio>
             <x>1</x>
             <y>1</y>
         </posicioninicio>
         <posicionfin>
-            <x>5</x>
-            <y>5</y>
+            <x>3</x>
+            <y>3</y>
         </posicionfin>
         <posicion x="1" y="1">1</posicion>
         <posicion x="1" y="2">2</posicion>
         <posicion x="1" y="3">3</posicion>
-        <posicion x="1" y="4">4</posicion>
-        <posicion x="1" y="5">5</posicion>
         <posicion x="2" y="1">6</posicion>
         <posicion x="2" y="2">7</posicion>
         <posicion x="2" y="3">8</posicion>
-        <posicion x="2" y="4">9</posicion>
-        <posicion x="2" y="5">10</posicion>
         <posicion x="3" y="1">11</posicion>
         <posicion x="3" y="2">12</posicion>
         <posicion x="3" y="3">13</posicion>
-        <posicion x="3" y="4">14</posicion>
-        <posicion x="3" y="5">15</posicion>
-        <posicion x="4" y="1">16</posicion>
-        <posicion x="4" y="2">17</posicion>
-        <posicion x="4" y="3">18</posicion>
-        <posicion x="4" y="4">19</posicion>
-        <posicion x="4" y="5">20</posicion>
-        <posicion x="5" y="1">21</posicion>
-        <posicion x="5" y="2">22</posicion>
-        <posicion x="5" y="3">23</posicion>
-        <posicion x="5" y="4">24</posicion>
-        <posicion x="5" y="5">25</posicion>
-    </terreno>
-    <terreno nombre="terreno2">
-        <dimension>
+    </TERRENO>
+    <TERRENO nombre="terreno2">
+        <DIMENSION>
             <m>5</m>
             <n>4</n>
-        </dimension>
+        </DIMENSION>
         <posicioninicio>
             <x>1</x>
             <y>1</y>
@@ -72,5 +56,5 @@
         <posicion x="5" y="3">23</posicion>
         <posicion x="5" y="4">24</posicion>
 
-    </terreno>
-</terrenos>
+    </TERRENO>
+</TERRENOS>

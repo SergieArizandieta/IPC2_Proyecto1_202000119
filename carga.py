@@ -5,23 +5,28 @@ from ListaEnlazada import *
 lista_e = lista_enlazada()
 
 def cargarListas(xmlRuta):
+    
     try:
         ruta = xmlRuta 
         xml = minidom.parse(ruta)
         rootNode = xml.documentElement
 
-        terrenos = rootNode.getElementsByTagName("terreno")
+        terrenos = rootNode.getElementsByTagName("TERRENO")
+        
         matrizGenerada = list
         for terreno in terrenos:
+            validacionlextura = True
             if terreno.hasAttribute("nombre"):
                     matrizGenerada = matriz()
                     nombre = terreno.getAttribute("nombre")
                                  
-                    dimension = terreno.getElementsByTagName("dimension")
+                    dimension = terreno.getElementsByTagName("DIMENSION")
                     for tamano in dimension:
                         m = tamano.getElementsByTagName("m")[0]
                         n = tamano.getElementsByTagName("n")[0]
 
+                    if int(m.childNodes[0].data)>100 or int(n.childNodes[0].data)>100 or int(m.childNodes[0].data)<1 or int(n.childNodes[0].data)<1 :
+                        validacionlextura = False
 
                     posicioninicio = terreno.getElementsByTagName("posicioninicio")
                     for inicio in posicioninicio:
@@ -32,19 +37,28 @@ def cargarListas(xmlRuta):
                     for final in posicionfin:
                         x2 = final.getElementsByTagName("x")[0]
                         y2 = final.getElementsByTagName("y")[0]
-
-                    posicion = terreno.getElementsByTagName("posicion")
-                    for position in posicion:
-                        matrizGenerada.insertar(position.getAttribute("y")[0] ,position.getAttribute("x")[0],position.childNodes[0].data)
                     
-                    e1 = Listaterrenos(nombre,matrizGenerada,x1.childNodes[0].data,y1.childNodes[0].data,x2.childNodes[0].data,y2.childNodes[0].data,m.childNodes[0].data,n.childNodes[0].data )
-                    lista_e.insertar(e1)
+                    if( validacionlextura == True):
+                        posicion = terreno.getElementsByTagName("posicion")
+                        for position in posicion:
+                            
+                            #print(position.attributes['x'].value,position.attributes['y'].value, " + ", position.childNodes[0].data)
 
-        # print("Recorrer listas")
+                            matrizGenerada.insertar(int(position.attributes['y'].value) ,int(position.attributes['x'].value),int(position.childNodes[0].data),int(position.attributes['x'].value),int(position.attributes['y'].value ))
+                        
+                        e1 = Listaterrenos(nombre,matrizGenerada,x1.childNodes[0].data,y1.childNodes[0].data,x2.childNodes[0].data,y2.childNodes[0].data,m.childNodes[0].data,n.childNodes[0].data )
+                        #print(nombre,matrizGenerada,x1.childNodes[0].data,y1.childNodes[0].data,x2.childNodes[0].data,y2.childNodes[0].data,m.childNodes[0].data,n.childNodes[0].data)
+                        lista_e.insertar(e1)
+                    else:
+                        print("El terreno no cumple con los limites de filas y columnas >0 y <=100, terreno:",nombre)
+
+        
         #lista_e.recorrer() 
-        print("\nArchivo Cargado con Exito")
+        print("\nArchivo Cargado con Exito\n")
+        return True
     
     except Exception:
-        print ("\nError en la ruta ingresada")
+        print ("\nError en la ruta ingresada\n")
+        return False
 
 
