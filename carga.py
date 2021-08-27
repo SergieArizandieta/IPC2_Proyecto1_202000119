@@ -54,9 +54,11 @@ def cargarListas(xmlRuta):
 
         
         #lista_e.recorrer() 
-        print("\nArchivo Cargado con Exito")
+        print("\nArchivo Cargado con Exito\n")
+        return True
     
     except Exception:
-        print ("\nError en la ruta ingresada")
+        print ("\nError en la ruta ingresada\n")
+        return False
 
 

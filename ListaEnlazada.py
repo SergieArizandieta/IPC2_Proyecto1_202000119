@@ -15,6 +15,7 @@ class Listaterrenos:
     self.grafo = None
 
 class nodo:
+  
     def __init__(self,terreno =None,siguiente=None):
       self.terreno=terreno
       self.siguiente=siguiente
@@ -53,7 +54,8 @@ class lista_enlazada:
       anterior = actual
       actual = actual.siguiente
       if actual is None:
-        #print("\nNo se encontro el Terreno:", terreno)
+        if XML is not None:
+          print("\nNo se encontro el Terreno:", terreno, "\n")
         break
     if actual is not None:
       if actual.terreno.terreno == terreno:
@@ -72,11 +74,11 @@ class lista_enlazada:
         elif opcion == False  :
           xml = actual.terreno.lista.exportarxmls(int(actual.terreno.y1),int(actual.terreno.x1),actual.terreno.terreno,int(actual.terreno.y2),int(actual.terreno.x2),rutaIngresada)
           actual.terreno.xml = xml
-          print("XMLSSSADS")
-          print(xml)
+          #print("XMLSSSADS")
+          #print(xml)
          
         else:
-           print("Funcionalidad de terreno incorrecta")
+           print(" El terreno fue anteriormente procesado\n ")
 
   def Grafo(self,terreno,importar):
     actual = self.primero
@@ -85,7 +87,7 @@ class lista_enlazada:
       anterior = actual
       actual = actual.siguiente
       if actual is None:
-        print("\nNo se encontro el Terreno:", terreno)
+        print("\nNo se encontro el Terreno:", terreno, "\n")
         break
     if actual is not None:
       if actual.terreno.terreno == terreno:
@@ -95,40 +97,43 @@ class lista_enlazada:
             actual.grafo = documento
             #print(actual.grafo)
         elif  actual.terreno.validado == True  and importar is not None:
-            print("Importar")
+            #print("Importar")
             #print(actual.grafo)
             actual.terreno.lista.importarGrafo(actual.grafo,actual.terreno.terreno )
 
+  
+  
   def limpiar(self):
-    cadena = ""
 
-    print("\n")
-    actual= self.primero
-    while actual != None:
-      if actual.siguiente is not None:
-        cadena += actual.terreno.terreno + ","
-        #print("*", actual.terreno.terreno)
-        actual = actual.siguiente
-      else:
-        cadena += actual.terreno.terreno
-        actual = actual.siguiente 
-    
-    totalNames = cadena.split(",")
-    #print(totalNames)
+      cadena = ""
 
-    for teerrenoV in totalNames:
-      actual = self.primero
-      anterior = None
-
-      while actual and actual.terreno.terreno != teerrenoV:
-        anterior = actual
-        actual = actual.siguiente
+  
+      actual= self.primero
+      while actual != None:
+        if actual.siguiente is not None:
+          cadena += actual.terreno.terreno + ","
+          #print("*", actual.terreno.terreno)
+          actual = actual.siguiente
+        else:
+          cadena += actual.terreno.terreno
+          actual = actual.siguiente 
       
-      if anterior is None:
-        self.primero = actual.siguiente
-      elif actual:
-        anterior.siguiente = actual.siguiente
-        actual.siguiente = None
+      totalNames = cadena.split(",")
+      #print(totalNames)
+
+      for teerrenoV in totalNames:
+        actual = self.primero
+        anterior = None
+
+        while actual and actual.terreno.terreno != teerrenoV:
+          anterior = actual
+          actual = actual.siguiente
+        
+        if anterior is None:
+          self.primero = actual.siguiente
+        elif actual:
+          anterior.siguiente = actual.siguiente
+          actual.siguiente = None
 
 
       

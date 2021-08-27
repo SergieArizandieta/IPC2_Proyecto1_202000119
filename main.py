@@ -29,8 +29,8 @@ if __name__ == "__main__":
                     if validacion == False:
                         print("\nCargar Archivo")
                         xmlRuta = input("Ingrese ruta del xml: ")
-                        cargarListas(xmlRuta)
-                        validacion = True
+                        validacion = cargarListas(xmlRuta)
+                        #validacion = True
                         #xmlRuta = "./prueba.xml"
 
                     else:
@@ -44,7 +44,7 @@ if __name__ == "__main__":
                 elif option == 2:
 
                     if xmlRuta is None or xmlRuta=="":
-                        print("\nIngrese un archivo XML primero")
+                        print("\nIngrese un archivo XML primero\n")
                     else:
                         print("\nTerrenos cargados en XML")   
                         lista_e.recorrer() 
@@ -57,11 +57,13 @@ if __name__ == "__main__":
                         #terreno = "terreno1"
 
                 elif option == 3:
-
+                    if xmlRuta is None or xmlRuta=="":
+                        print("\nIngrese un archivo XML primero\n")
+                    else:
                         print("\nTerrenos procesados:")
                         lista_e.recorrerNombres()
                         print("")
-                        terrenos = input("\nIngrese nombre del terreno para generar XML: ")
+                        terrenos = input("\nIngrese nombre del terreno para generar XML: \n")
                         ruta = "./XML_Terrenos/"
                         lista_e.buscar(terrenos,True,"","XML")
 
@@ -95,11 +97,11 @@ if __name__ == "__main__":
                     exit()      
 
                 else:
-                    print("Opcion invalida.")
+                    print("Opcion invalida.\n")
                 menu()
 
             except Exception:
-                print ("\nError vuelva a intentarlo")
+                print ("\nError vuelva a intentarlo\n")
                 print()
                 menu()
             

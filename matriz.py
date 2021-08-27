@@ -13,6 +13,7 @@ class matriz:
 
     def importarGrafo(self,DOT,name):
         print("Generando Grafo.... de: " +name)
+        print("Grafo genrado...abriendo\n")
         ruta = "./Diagramas/"
 
         DotName = name+ '.dot'
@@ -215,7 +216,7 @@ class matriz:
             print( str(fila))         
             eFila = eFila.siguiente
 
-        print("\n**********************FIN Reporte  ***********************")
+        print("\n********************** FIN Reporte  ***********************\n")
 
     def exportarxmls(self,y,x,terreno,y2,x2,rutaIngresada):
         try:
@@ -309,7 +310,7 @@ class matriz:
                 
         print("\n",Gasolina, "GASOLINA TOTAL GASTADA")
         if Gasolina>9999:
-            print("Gasolina no podra llegar a su destino\n")
+            print(" No podra llegar a su destino\n")
             print("Sin embargo la mejor tura era:\n")
      
     
