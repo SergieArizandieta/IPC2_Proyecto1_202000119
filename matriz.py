@@ -26,9 +26,7 @@ class matriz:
         
         system('dot -Tpng ' + ruta+  DotName + ' -o ' + ruta+ ImgName)
         #print(rutacmdImg)
-        system('"' + rutacmdImg + '"')
-
-
+        system('"' + rutacmdImg + '"\n')
 
     def insertarGrafo(self,terreno,m,n):
         Inicio = self.eFilas.primero
@@ -37,13 +35,13 @@ class matriz:
         columnastemp = []
         filas = ""
         InicioGraf = """
-graph L{
-node[shape=oval fillcolor="#A181FF" style =filled]
+        graph L{
+        node[shape=oval fillcolor="#A181FF" style =filled]
 
-subgraph cluster_p{
-label= " """ + terreno +""" "
-bgcolor = "#FF7878"
-raiz[label = "F/C" fillcolor="#FFD581" ]\n\n"""
+        subgraph cluster_p{
+        label= " """ + terreno +""" "
+        bgcolor = "#FF7878"
+        raiz[label = "F/C" fillcolor="#FFD581" ]\n\n"""
         for y in range(1,n+1):
             filas += 'Fila' + str(y) + '[label="' + str(y) + '",group='+str(1)+'];\n'
 
@@ -136,7 +134,6 @@ raiz[label = "F/C" fillcolor="#FFD581" ]\n\n"""
         actual =Inicio.accesoNodo
 
         return InicioGraf
-
 
     def insertar(self,fila,columna,valor,x,y):
         nuevo = Nodo(fila,columna,valor,x,y)
@@ -281,7 +278,7 @@ raiz[label = "F/C" fillcolor="#FFD581" ]\n\n"""
         try:
             ruta = "./XML_Terrenos/"
             root.write(ruta  + terreno + '.xml', encoding='UTF-8')
-            print("\nXML creado en la ruta:", ruta + terreno + '.xml')
+            print("\nXML creado en la ruta:", ruta + terreno + '.xml\n')
         except Exception:
             print ("\nError al crear archivo")
 
@@ -294,13 +291,9 @@ raiz[label = "F/C" fillcolor="#FFD581" ]\n\n"""
         print ( "(",x2,",",y2,")")
         print ( "Matriz de tamaño:",m,"*",n)
         print ( "\n********************** Recorrido mejor ruta ***********************")
-
         
-      
-      
         Inicio = self.eFilas.primero
         actual =Inicio.accesoNodo
-
         actual =Inicio.accesoNodo
     
         actual = Inicial(actual,x1,y1,x2,y2,Inicio)

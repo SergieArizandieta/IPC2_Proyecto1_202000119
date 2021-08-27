@@ -12,6 +12,7 @@ def cargarListas(xmlRuta):
         rootNode = xml.documentElement
 
         terrenos = rootNode.getElementsByTagName("TERRENO")
+        
         matrizGenerada = list
         for terreno in terrenos:
             validacionlextura = True

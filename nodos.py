@@ -22,8 +22,8 @@ class Nodo:
         self.finish = 0
 
 class nodoEncabezado:
-    def __init__(self, id):
-        self.id = id
+    def __init__(self, Indicador):
+        self.Indicador = Indicador
         self.siguiente = None
         self.anterior = None
         self.accesoNodo = None

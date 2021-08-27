@@ -3,33 +3,33 @@ class listaEncabezado:
     def __init__(self,primero=None):
         self.primero = primero
     
-    def setEncabezado(self,nuevo):
+    def setEncabezado(self,nuevoData):
         if self.primero == None:
-            self.primero = nuevo
-        elif nuevo.id < self.primero.id:
-            nuevo.siguiente = self.primero
-            self.primero.anterior = nuevo
-            self.primero = nuevo
+            self.primero = nuevoData
+        elif nuevoData.Indicador < self.primero.Indicador:
+            nuevoData.siguiente = self.primero
+            self.primero.anterior = nuevoData
+            self.primero = nuevoData
         else:
             actual = self.primero
             while actual.siguiente != None:
-                if nuevo.id < actual.siguiente.id:
-                    nuevo.siguiente = actual.siguiente
-                    actual.siguiente.anterior = nuevo
-                    nuevo.anterior = actual
-                    actual.siguiente = nuevo
+                if nuevoData.Indicador < actual.siguiente.Indicador:
+                    nuevoData.siguiente = actual.siguiente
+                    actual.siguiente.anterior = nuevoData
+                    nuevoData.anterior = actual
+                    actual.siguiente = nuevoData
                     break
 
                 actual = actual.siguiente
             
             if actual.siguiente == None:
-                actual.siguiente = nuevo
-                nuevo.anterior = actual
+                actual.siguiente = nuevoData
+                nuevoData.anterior = actual
 
-    def getEncabezado(self,id):
+    def getEncabezado(self,Indicador):
         actual = self.primero
         while actual != None:
-            if actual.id == id:
+            if actual.Indicador == Indicador:
                 return actual
             actual = actual.siguiente
         return None 
