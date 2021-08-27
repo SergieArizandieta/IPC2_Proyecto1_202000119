@@ -25,7 +25,7 @@ def cargarListas(xmlRuta):
                         m = tamano.getElementsByTagName("m")[0]
                         n = tamano.getElementsByTagName("n")[0]
 
-                    if int(m.childNodes[0].data)>100 or int(n.childNodes[0].data)>100:
+                    if int(m.childNodes[0].data)>100 or int(n.childNodes[0].data)>100 or int(m.childNodes[0].data)<1 or int(n.childNodes[0].data)<1 :
                         validacionlextura = False
 
                     posicioninicio = terreno.getElementsByTagName("posicioninicio")
@@ -50,7 +50,7 @@ def cargarListas(xmlRuta):
                         #print(nombre,matrizGenerada,x1.childNodes[0].data,y1.childNodes[0].data,x2.childNodes[0].data,y2.childNodes[0].data,m.childNodes[0].data,n.childNodes[0].data)
                         lista_e.insertar(e1)
                     else:
-                        print("El terreno sobre pasa los limites de 100*100, terreno:",nombre)
+                        print("El terreno no cumple con los limites de filas y columnas >0 y <=100, terreno:",nombre)
 
         
         #lista_e.recorrer() 
