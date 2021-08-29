@@ -15,7 +15,6 @@ class Listaterrenos:
     self.grafo = None
 
 class nodo:
-  
     def __init__(self,terreno =None,siguiente=None):
       self.terreno=terreno
       self.siguiente=siguiente
@@ -100,8 +99,6 @@ class lista_enlazada:
             #print("Importar")
             #print(actual.grafo)
             actual.terreno.lista.importarGrafo(actual.grafo,actual.terreno.terreno )
-
-  
   
   def limpiar(self):
 
