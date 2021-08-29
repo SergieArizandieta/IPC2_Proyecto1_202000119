@@ -15,7 +15,6 @@ class Listaterrenos:
     self.grafo = None
 
 class nodo:
-  
     def __init__(self,terreno =None,siguiente=None):
       self.terreno=terreno
       self.siguiente=siguiente
@@ -72,7 +71,7 @@ class lista_enlazada:
           actual.terreno.validado = True
 
         elif opcion == False  :
-          xml = actual.terreno.lista.exportarxmls(int(actual.terreno.y1),int(actual.terreno.x1),actual.terreno.terreno,int(actual.terreno.y2),int(actual.terreno.x2),rutaIngresada)
+          xml = actual.terreno.lista.exportarxmls(int(actual.terreno.y1),int(actual.terreno.x1),actual.terreno.terreno,int(actual.terreno.y2),int(actual.terreno.x2),rutaIngresada,int(actual.terreno.m),int(actual.terreno.n))
           actual.terreno.xml = xml
           #print("XMLSSSADS")
           #print(xml)
@@ -100,8 +99,6 @@ class lista_enlazada:
             #print("Importar")
             #print(actual.grafo)
             actual.terreno.lista.importarGrafo(actual.grafo,actual.terreno.terreno )
-
-  
   
   def limpiar(self):
 

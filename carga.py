@@ -8,50 +8,48 @@ def cargarListas(xmlRuta):
     
     try:
         ruta = xmlRuta 
-        xml = minidom.parse(ruta)
-        rootNode = xml.documentElement
 
-        terrenos = rootNode.getElementsByTagName("TERRENO")
+        gestion = ET.parse(ruta)
+        root = gestion.getroot()
         
-        matrizGenerada = list
-        for terreno in terrenos:
+        for terrenos in root:
             validacionlextura = True
-            if terreno.hasAttribute("nombre"):
-                    matrizGenerada = matriz()
-                    nombre = terreno.getAttribute("nombre")
-                                 
-                    dimension = terreno.getElementsByTagName("DIMENSION")
-                    for tamano in dimension:
-                        m = tamano.getElementsByTagName("m")[0]
-                        n = tamano.getElementsByTagName("n")[0]
+            
+            
+            for dimension in terrenos.iter('m'):
+                m=dimension.text
+            
+            for dimension in terrenos.iter('n'):
+                n=dimension.text
+     
+            for posicioni in terrenos.iter('posicioninicio'):
+                for x in posicioni.iter('x'):
+                    x1=x.text
+                for y in posicioni.iter('y'):
+                    y1=y.text   
+      
+            for posicionf in terrenos.iter('posicionfin'):
+                for x in posicionf.iter('x'):
+                    x2=x.text
+                for y in posicionf.iter('y'):
+                    y2=y.text  
 
-                    if int(m.childNodes[0].data)>100 or int(n.childNodes[0].data)>100 or int(m.childNodes[0].data)<1 or int(n.childNodes[0].data)<1 :
-                        validacionlextura = False
+            if int(m)>100 or int(n)>100 or int(m)<1 or int(n)<1 :
+                validacionlextura = False
 
-                    posicioninicio = terreno.getElementsByTagName("posicioninicio")
-                    for inicio in posicioninicio:
-                        x1 = inicio.getElementsByTagName("x")[0]
-                        y1 = inicio.getElementsByTagName("y")[0]
+            matrizGenerada = matriz()
 
-                    posicionfin = terreno.getElementsByTagName("posicionfin")
-                    for final in posicionfin:
-                        x2 = final.getElementsByTagName("x")[0]
-                        y2 = final.getElementsByTagName("y")[0]
-                    
-                    if( validacionlextura == True):
-                        posicion = terreno.getElementsByTagName("posicion")
-                        for position in posicion:
-                            
-                            #print(position.attributes['x'].value,position.attributes['y'].value, " + ", position.childNodes[0].data)
-
-                            matrizGenerada.insertar(int(position.attributes['y'].value) ,int(position.attributes['x'].value),int(position.childNodes[0].data),int(position.attributes['x'].value),int(position.attributes['y'].value ))
-                        
-                        e1 = Listaterrenos(nombre,matrizGenerada,x1.childNodes[0].data,y1.childNodes[0].data,x2.childNodes[0].data,y2.childNodes[0].data,m.childNodes[0].data,n.childNodes[0].data )
-                        #print(nombre,matrizGenerada,x1.childNodes[0].data,y1.childNodes[0].data,x2.childNodes[0].data,y2.childNodes[0].data,m.childNodes[0].data,n.childNodes[0].data)
-                        lista_e.insertar(e1)
-                    else:
-                        print("El terreno no cumple con los limites de filas y columnas >0 y <=100, terreno:",nombre)
-
+            if validacionlextura == True:
+                nombre=terrenos.attrib['nombre']
+                print("Se ha guardado la información del mapa: " + nombre )
+                for posicion in terrenos.iter('posicion'):
+                    #fila,columna,valor,x,y
+                    matrizGenerada.insertar(int(posicion.attrib['y']) ,int(posicion.attrib['x']),int(posicion.text),int(posicion.attrib['x']),int(posicion.attrib['y']))
+        
+                e1 = Listaterrenos(nombre,matrizGenerada,x1,y1,x2,y2,m,n )
+                #terreno,lista,x1,y1,x2,y2,m,n  
+                lista_e.insertar(e1)
+                
         
         #lista_e.recorrer() 
         print("\nArchivo Cargado con Exito\n")
