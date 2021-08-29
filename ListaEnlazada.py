@@ -71,7 +71,7 @@ class lista_enlazada:
           actual.terreno.validado = True
 
         elif opcion == False  :
-          xml = actual.terreno.lista.exportarxmls(int(actual.terreno.y1),int(actual.terreno.x1),actual.terreno.terreno,int(actual.terreno.y2),int(actual.terreno.x2),rutaIngresada)
+          xml = actual.terreno.lista.exportarxmls(int(actual.terreno.y1),int(actual.terreno.x1),actual.terreno.terreno,int(actual.terreno.y2),int(actual.terreno.x2),rutaIngresada,int(actual.terreno.m),int(actual.terreno.n))
           actual.terreno.xml = xml
           #print("XMLSSSADS")
           #print(xml)

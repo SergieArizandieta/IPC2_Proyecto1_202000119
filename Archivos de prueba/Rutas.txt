@@ -6,3 +6,6 @@ C:\Users\sergi\3D Objects\GitHub\IPC2_Proyeco1_202000119\Archivos de prueba\Arch
 
 mayores a 100 e igual a 0
 C:\Users\sergi\3D Objects\GitHub\IPC2_Proyeco1_202000119\Archivos de prueba\prueba - copia.XML
+
+Distino 
+C:\Users\sergi\3D Objects\GitHub\IPC2_Proyeco1_202000119\Archivos de prueba\Test.xml

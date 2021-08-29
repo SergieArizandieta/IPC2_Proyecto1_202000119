@@ -218,7 +218,7 @@ class matriz:
 
         print("\n********************** FIN Reporte  ***********************\n")
 
-    def exportarxmls(self,y,x,terreno,y2,x2,rutaIngresada):
+    def exportarxmls(self,y,x,terreno,y2,x2,rutaIngresada,m,n):
         try:
             
             ruta = rutaIngresada
@@ -230,6 +230,10 @@ class matriz:
             pocicionfinal = ET.SubElement(root, "posicionfinal")
             ET.SubElement(pocicionfinal, "x").text = str(x2)
             ET.SubElement(pocicionfinal, "y").text = str(y2)
+
+            pocicionfinal = ET.SubElement(root, "dimension")
+            ET.SubElement(pocicionfinal, "m").text = str(m)
+            ET.SubElement(pocicionfinal, "n").text = str(n)
 
 
             ET.SubElement(root, "combustible",).text = str(Gasolina)
